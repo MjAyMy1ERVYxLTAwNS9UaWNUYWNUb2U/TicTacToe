@@ -17,10 +17,12 @@ public class GameService {
 
 	public String playGame(Player player, int row, int column) {
 		String message = null;
-		if (player == Player.X)
+		if (player == Player.X) {
 			message = "Player X moved first";
-		else if (player == Player.O)
+			gameBoard.setPlayerInPosition(row, column, player);
+		} else if (player == Player.O) {
 			throw new InvalidTurnException("Player X should move first");
+		}
 		return message;
 	}
 }
