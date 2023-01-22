@@ -2,14 +2,13 @@ package com.tictactoe.game.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import javax.swing.text.Position;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import com.tictactoe.game.enumeration.Player;
+import com.tictactoe.game.enumeration.Position;
 import com.tictactoe.game.service.impl.GameBoard;
 import com.tictcatoe.game.exception.InvalidTurnException;
 
@@ -27,24 +26,24 @@ public class GameServiceTests {
 
 	@Test
 	public void playerXShouldAlwaysGoFirst() {
-		assertThat(gameService.playGame(Player.X, 0, 0).getCurrentPlayer()).isEqualTo(Player.X);
+		assertThat(gameService.playGame(Player.X, Position.ONE.getValue()).getCurrentPlayer()).isEqualTo(Player.X);
 	}
 
 	@Test(expected = InvalidTurnException.class)
 	public void playGameShouldThrowInvalidTurnExceptionIfPlayerOMovesFirst() {
-		gameService.playGame(Player.O, 0, 1);
+		gameService.playGame(Player.O, Position.TWO.getValue());
 	}
 
 	@Test
 	public void getPositionFromPlayerAndSaveOnGameBoard() {
-		gameService.playGame(Player.X, 0, 2);
-		assertThat(gameBoard.getPlayerInPosition(0, 2)).isEqualTo(Player.X.getValue());
+		gameService.playGame(Player.X, Position.THREE.getValue());
+		assertThat(gameBoard.getPlayerInPosition(Position.THREE)).isEqualTo(Player.X.getValue());
 	}
 
 	@Test
 	public void shouldDeclareWinnerIfAnyOneOfThreeRowsIsFilledBySamePlayer() {
-		gameService.playGame(Player.X, 0, 2);
-		gameService.playGame(Player.O, 0, 1);
-		assertThat(gameService.playGame(Player.X, 1, 1).getStatus()).isEqualTo("GAME_IN_PROGRESS");
+		gameService.playGame(Player.X, Position.ONE.getValue());
+		gameService.playGame(Player.O, Position.TWO.getValue());
+		assertThat(gameService.playGame(Player.X, Position.THREE.getValue()).getStatus()).isEqualTo("GAME_IN_PROGRESS");
 	}
 }

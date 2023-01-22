@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.tictactoe.game.enumeration.Player;
+import com.tictactoe.game.enumeration.Position;
 import com.tictactoe.game.response.GameResponse;
 import com.tictactoe.game.service.GameService;
 import com.tictcatoe.game.exception.InvalidTurnException;
@@ -29,17 +30,20 @@ class GameControllerTests {
 
 	@Test
 	void playGameAPIShouldReturnOkStatus() throws Exception {
-		when(gameService.playGame(Player.X, 0, 0)).thenReturn(new GameResponse("GAME_IN_PROGRESS", Player.O, Player.X));
+		when(gameService.playGame(Player.X, Position.ONE.getValue()))
+		.thenReturn(new GameResponse("GAME_IN_PROGRESS", Player.O, Player.X));
 
-		mockMvc.perform(post("/tictactoe/play/{player}/{row}/{column}", Player.X, 0, 0)).andExpect(status().isOk());
+		mockMvc.perform(post("/tictactoe/play/{player}/{position}", Player.X, Position.ONE.getValue()))
+		.andExpect(status().isOk());
 	}
 
 	@Test
 	public void playGameAPIShouldShowForbiddenHttpStatusWhenInValidMove() throws Exception {
-		when(gameService.playGame(Player.O, 0, 1)).thenThrow(new InvalidTurnException("Player X should move first"));
+		when(gameService.playGame(Player.O, Position.TWO.getValue()))
+		.thenThrow(new InvalidTurnException("Player X should move first"));
 
-		mockMvc.perform(post("/tictactoe/play/{player}/{row}/{column}", Player.O, 0, 1))
-				.andExpect(status().isForbidden());	
+		mockMvc.perform(post("/tictactoe/play/{player}/{position}", Player.O, Position.TWO.getValue()))
+		.andExpect(status().isForbidden());	
 		}
 
 }
