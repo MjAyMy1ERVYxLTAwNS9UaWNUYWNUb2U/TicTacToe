@@ -1,10 +1,12 @@
 package com.tictactoe.game.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tictactoe.game.enumeration.Player;
 
 import lombok.Getter;
 
 @Getter
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class GameResponse {
 
 	private String status;
