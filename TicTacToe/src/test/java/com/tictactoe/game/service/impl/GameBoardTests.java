@@ -40,7 +40,7 @@ public class GameBoardTests {
 		gameBoard.setPlayerInPosition(Position.THREE, Player.X);
 		assertThat(gameBoard.isFirstRowOccupiedBySamePlayer()).isTrue();
 	}
-	
+
 	@Test
 	public void checkSecondRowOccupiedBySamePlayer() {
 		gameBoard.setPlayerInPosition(Position.ONE, Player.X);
@@ -50,5 +50,15 @@ public class GameBoardTests {
 		gameBoard.setPlayerInPosition(Position.NINE, Player.X);
 		gameBoard.setPlayerInPosition(Position.SIX, Player.O);
 		assertThat(gameBoard.isSecondRowOccupiedBySamePlayer()).isTrue();
+	}
+
+	@Test
+	public void checkThirdRowOccupiedBySamePlayer() {
+		gameBoard.setPlayerInPosition(Position.SEVEN, Player.X);
+		gameBoard.setPlayerInPosition(Position.FIVE, Player.O);
+		gameBoard.setPlayerInPosition(Position.EIGHT, Player.X);
+		gameBoard.setPlayerInPosition(Position.THREE, Player.O);
+		gameBoard.setPlayerInPosition(Position.NINE, Player.X);
+		assertThat(gameBoard.isThirdRowOccupiedBySamePlayer()).isTrue();
 	}
 }
