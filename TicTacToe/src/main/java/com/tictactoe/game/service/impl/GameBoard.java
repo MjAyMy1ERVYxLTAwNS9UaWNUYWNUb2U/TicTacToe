@@ -11,9 +11,13 @@ import com.tictactoe.game.enumeration.Position;
 @Service
 public class GameBoard {
 
-	private char[][] board = new char[3][3];
+	private char[][] board;
 	private static final int EMPTY_POSITION_ON_BOARD = 0;
 	private static final int TOTAL_POSITIONS_ON_BOARD = 9;
+
+	public void initializeGameBoard() {
+		board = new char[3][3];
+	}
 
 	public void setPlayerInPosition(Position position, Player player) {
 		board[position.getRow()][position.getColumn()] = player.getValue();
