@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 public class GameService {
 
 	public String playGame(char player) {
-		return "Player X moved first";
+		String message = null;
+		if (player == 'X')
+			message = "Player X moved first";
+		return message;
 	}
 }
