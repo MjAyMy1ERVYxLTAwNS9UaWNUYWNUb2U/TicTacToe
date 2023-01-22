@@ -46,4 +46,10 @@ public class GameServiceTests {
 		gameService.playGame(Player.O, Position.TWO.getValue());
 		assertThat(gameService.playGame(Player.X, Position.THREE.getValue()).getStatus()).isEqualTo("GAME_IN_PROGRESS");
 	}
+
+	@Test(expected = InvalidTurnException.class)
+	public void playGameShouldThrowInvalidTurnExceptionIfSamePlayerPlaysConsecutiveTurns() {
+		gameService.playGame(Player.X, Position.THREE.getValue());
+		gameService.playGame(Player.X, Position.TWO.getValue());
+	}
 }
