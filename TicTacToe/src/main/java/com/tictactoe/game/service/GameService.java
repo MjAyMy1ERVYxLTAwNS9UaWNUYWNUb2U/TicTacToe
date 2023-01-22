@@ -11,21 +11,25 @@ import com.tictcatoe.game.exception.InvalidTurnException;
 public class GameService {
 
 	private final GameBoard gameBoard;
+	private static final int ZERO = 0;
 
 	public GameService(GameBoard gameBoard) {
 		this.gameBoard = gameBoard;
 	}
 
 	public GameResponse playGame(Player player, int row, int column) {
-		if (player == Player.X) {
-			gameBoard.setPlayerInPosition(row, column, player);
-		} else if (player == Player.O) {
+		if (isFirstTurn() && player.equals(Player.O)) {
 			throw new InvalidTurnException("Player X should move first");
 		}
+		gameBoard.setPlayerInPosition(row, column, player);
 		return new GameResponse("GAME_IN_PROGRESS", getNextPlayer(player), player);
 	}
 
 	private Player getNextPlayer(Player player) {
 		return player == Player.X ? Player.O : Player.X;
+	}
+
+	private boolean isFirstTurn() {
+		return gameBoard.getCountOfPositionsOccupied() == ZERO;
 	}
 }
