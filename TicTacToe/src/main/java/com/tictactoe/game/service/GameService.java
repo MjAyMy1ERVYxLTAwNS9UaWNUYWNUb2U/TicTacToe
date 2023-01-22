@@ -67,6 +67,8 @@ public class GameService {
 
 	private GameResponse validateGameAndSendResponse(Player player) {
 		if (isWinnerAvailable()) {
+			previousPlayer = ZERO;
+			gameBoard.initializeGameBoard();
 			return new GameResponse(String.format("Player %s won the game", player), "GAME_OVER");
 		} else if (gameBoard.isBoardFull()) {
 			return new GameResponse("Game Tie", "GAME_OVER");
