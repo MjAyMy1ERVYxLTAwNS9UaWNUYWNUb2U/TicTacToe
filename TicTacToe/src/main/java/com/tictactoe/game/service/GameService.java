@@ -7,6 +7,7 @@ import com.tictactoe.game.enumeration.Position;
 import com.tictactoe.game.response.GameResponse;
 import com.tictactoe.game.service.impl.GameBoard;
 import com.tictcatoe.game.exception.InvalidTurnException;
+import com.tictcatoe.game.exception.PositionOccupiedException;
 
 @Service
 public class GameService {
@@ -24,6 +25,8 @@ public class GameService {
 			throw new InvalidTurnException("Player X should move first");
 		} else if (isSamePlayerPlayingConsecutiveTurns(player)) {
 			throw new InvalidTurnException(String.format("Player %s's turn now", getNextPlayer(player)));
+		} else if (gameBoard.getPlayerInPosition(Position.getRowColumnValueOfPosition(position)) != ZERO) {
+			throw new PositionOccupiedException(String.format("Position %s is already occupied", position));
 		}
 		gameBoard.setPlayerInPosition(Position.getRowColumnValueOfPosition(position), player);
 		previousPlayer = player.getValue();
