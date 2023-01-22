@@ -24,6 +24,10 @@ public class GameService {
 	public GameResponse playGame(Player player, int position) {
 		validateCurrentTurn(player, position);
 		savePlayerOnBoard(player, position);
+		if (gameBoard.isFirstRowOccupiedBySamePlayer() || gameBoard.isSecondRowOccupiedBySamePlayer()
+				|| gameBoard.isThirdRowOccupiedBySamePlayer()) {
+			return new GameResponse(String.format("Player %s won the game", player), "GAME_OVER");
+		}
 		return new GameResponse("GAME_IN_PROGRESS", getNextPlayer(player), player);
 	}
 
