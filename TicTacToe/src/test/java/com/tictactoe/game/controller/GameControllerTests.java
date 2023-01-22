@@ -16,6 +16,7 @@ import com.tictactoe.game.enumeration.Player;
 import com.tictactoe.game.enumeration.Position;
 import com.tictactoe.game.response.GameResponse;
 import com.tictactoe.game.service.GameService;
+import com.tictcatoe.game.exception.InvalidPositionException;
 import com.tictcatoe.game.exception.InvalidTurnException;
 import com.tictcatoe.game.exception.PositionOccupiedException;
 
@@ -53,6 +54,15 @@ class GameControllerTests {
 				.thenThrow(new PositionOccupiedException("Position %s is already occupied"));
 
 		mockMvc.perform(post("/tictactoe/play/{player}/{position}", Player.X, Position.FIVE.getValue()))
+				.andExpect(status().isForbidden());
+	}
+	
+	@Test
+	public void playGameAPIShouldShowForbiddenHttpStatusWhenInvalidPositionExceptionIsThrown() throws Exception {
+		when(gameService.playGame(Player.X, Position.DEFAULT.getValue()))
+				.thenThrow(new InvalidPositionException("Position %s is already occupied"));
+
+		mockMvc.perform(post("/tictactoe/play/{player}/{position}", Player.X, Position.DEFAULT.getValue()))
 				.andExpect(status().isForbidden());
 	}
 }
