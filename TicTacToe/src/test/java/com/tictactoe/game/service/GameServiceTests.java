@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.tictcatoe.game.exception.InvalidTurnException;
+
 @RunWith(MockitoJUnitRunner.class)
 public class GameServiceTests {
 
@@ -15,4 +17,9 @@ public class GameServiceTests {
 		assertThat(gameService.playGame('X')).isEqualTo("Player X moved first");
 	}
 
+	@Test(expected = InvalidTurnException.class)
+	public void playGameShouldThrowInvalidTurnExceptionIfPlayerOMovesFirst() {
+		GameService gameService = new GameService();
+		gameService.playGame('O');
+	}
 }
