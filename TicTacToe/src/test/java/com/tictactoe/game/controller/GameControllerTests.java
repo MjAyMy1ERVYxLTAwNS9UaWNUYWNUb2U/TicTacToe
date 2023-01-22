@@ -28,16 +28,17 @@ class GameControllerTests {
 
 	@Test
 	void playGameAPIShouldReturnOkStatus() throws Exception {
-		when(gameService.playGame(Player.X)).thenReturn("Player X moved first");
+		when(gameService.playGame(Player.X, 0, 0)).thenReturn("Player X moved first");
 
-		mockMvc.perform(post("/tictactoe/play/{player}", Player.X)).andExpect(status().isOk());
+		mockMvc.perform(post("/tictactoe/play/{player}/{row}/{column}", Player.X, 0, 0)).andExpect(status().isOk());
 	}
 
 	@Test
 	public void playGameAPIShouldShowForbiddenHttpStatusWhenInValidMove() throws Exception {
-		when(gameService.playGame(Player.O)).thenThrow(new InvalidTurnException("Player X should move first"));
+		when(gameService.playGame(Player.O, 0, 1)).thenThrow(new InvalidTurnException("Player X should move first"));
 
-		mockMvc.perform(post("/tictactoe/play/{player}", Player.O)).andExpect(status().isForbidden());
-	}
+		mockMvc.perform(post("/tictactoe/play/{player}/{row}/{column}", Player.O, 0, 1))
+				.andExpect(status().isForbidden());	
+		}
 
 }
