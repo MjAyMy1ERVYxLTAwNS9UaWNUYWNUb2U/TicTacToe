@@ -24,12 +24,7 @@ public class GameService {
 	public GameResponse playGame(Player player, int position) {
 		validateCurrentTurn(player, position);
 		savePlayerOnBoard(player, position);
-		if (isWinnerAvailable()) {
-			return new GameResponse(String.format("Player %s won the game", player), "GAME_OVER");
-		} else if (gameBoard.isBoardFull()) {
-			return new GameResponse("Game Tie", "GAME_OVER");
-		}
-		return new GameResponse("GAME_IN_PROGRESS", getNextPlayer(player), player);
+		return validateGameAndSendResponse(player);
 	}
 
 	private Player getNextPlayer(Player player) {
@@ -65,5 +60,14 @@ public class GameService {
 		return gameBoard.isAnyOneOfThreeRowsOccupiedBySamePlayer()
 				|| gameBoard.isAnyOfThreeColumnsOccupiedBySamePlayer()
 				|| gameBoard.isAnyOfTwoDiagonalOccupiedBySamePlayer();
+	}
+
+	private GameResponse validateGameAndSendResponse(Player player) {
+		if (isWinnerAvailable()) {
+			return new GameResponse(String.format("Player %s won the game", player), "GAME_OVER");
+		} else if (gameBoard.isBoardFull()) {
+			return new GameResponse("Game Tie", "GAME_OVER");
+		}
+		return new GameResponse("GAME_IN_PROGRESS", getNextPlayer(player), player);
 	}
 }
