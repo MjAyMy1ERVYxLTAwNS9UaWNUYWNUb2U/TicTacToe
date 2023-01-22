@@ -41,7 +41,7 @@ public class GameServiceTests {
 	}
 
 	@Test
-	public void shouldDeclareWinnerIfAnyOneOfThreeRowsIsFilledBySamePlayer() {
+	public void playGameshouldThrowValidationIfOnlyPlayerOMovesFirst() {
 		gameService.playGame(Player.X, Position.ONE.getValue());
 		gameService.playGame(Player.O, Position.TWO.getValue());
 		assertThat(gameService.playGame(Player.X, Position.THREE.getValue()).getStatus()).isEqualTo("GAME_IN_PROGRESS");
