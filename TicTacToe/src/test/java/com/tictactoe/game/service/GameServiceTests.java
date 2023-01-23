@@ -131,4 +131,10 @@ public class GameServiceTests {
 		assertThat(gameService.playGame(Player.X, Position.SIX.getValue()).getResult()).isEqualTo("Game Tie");
 		assertThat(gameService.playGame(Player.X, Position.ONE.getValue()).getStatus()).isEqualTo("GAME_IN_PROGRESS");
 	}
+
+	@Test
+	public void getCountPositionOccupiedOnGameBoardIsZerowhenGameIsReset() {
+		gameService.resetGame();
+		assertThat(gameBoard.getCountOfPositionsOccupied()).isZero();
+	}
 }
