@@ -33,3 +33,43 @@ Develop a simple Tic Tac Toe game written in Java and Spring Boot using Test Dri
 - Java 8 or above
 - Spring Boot 2.7.7
 - Maven 3.x
+- IDE - Eclipse or any other IDE which supports Java
+
+## *Set up application*
+
+## *IDE*
+1. Clone the repository `https://github.com/MjAyMy1ERVYxLTAwNS9UaWNUYWNUb2U/TicTacToe.git`
+2. Add as Maven project
+3. Select Project SDK as JDK 1.8 or above
+
+## *Command prompt*
+1. Clone this repository from GIT `https://github.com/MjAyMy1ERVYxLTAwNS9UaWNUYWNUb2U/TicTacToe.git`
+2. Run `mvn clean install`
+
+## *Build and run the application in command prompt
+1. Open the command prompt / terminal and go to the directory where you have cloned the TicTacToe program
+2. Build the application `mvn clean install`
+3. Run the application `mvn exec:java`.
+	
+## **Steps to play the game**
+
+1. Start the application in local machine and use the below swagger link to play the game
+   - http://localhost:8080/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config
+   
+   - Replace 8080 with port you are using in above URL, in case you are using different port.
+   
+2. Use Play Tic Tac Toe Game API to play the game. Request body contains two fields - player and position 
+   - Input value for player - X or O (Only uppercase allowed)
+   - Input range for position - 1 to 9 Only
+   
+3. Reset Tic Tac Toe Game API can be used to reset the game at anypoint of time.
+
+## **How to access the code coverage report**
+
+Please follow below-mentioned steps to access code coverage report.
+
+1. Clone the repository ```https://github.com/MjAyMy1ERVYxLTAwNS9UaWNUYWNUb2U/TicTacToe.git```
+2. Open CMD or Git Bash Terminal
+   - `mvn clean test`
+3. After successful build, you can find the report in below path
+   - target/site/jacoco/index.html
